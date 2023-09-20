@@ -6,11 +6,12 @@ on:
       - main
 
 env:
+  IMAGE_NAME: joranbergfeld/airport-system
   REGISTRY_USER: ${{ github.actor }}
   REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
-  publish-api-client:
+  publish-api-clients:
     runs-on: ubuntu-latest
 
     steps:
