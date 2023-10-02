@@ -14,3 +14,14 @@ management:
 server:
   shutdown: graceful
 
+app:
+  client-protocol: http
+  plane-client:
+    url: localhost
+    port: 9000
+  gate-client:
+    url: localhost
+    port: 9001
+  airliner-client:
+    url: localhost
+    port: 9002
