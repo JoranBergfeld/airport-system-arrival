@@ -1,13 +1,10 @@
-package com.joranbergfeld.airportsystem.arrival;
+package com.joranbergfeld.airportsystem.arrival.schedule;
 
 import com.joranbergfeld.airport_system.airliner.client.api.AirlinerControllerApi;
 import com.joranbergfeld.airport_system.plane.client.api.PlaneControllerApi;
 import com.joranbergfeld.airportsystem.arrival.event.ActualArrivalTimeRegisteredEvent;
 import com.joranbergfeld.airportsystem.arrival.exception.FailedToValidateInputException;
-import com.joranbergfeld.airportsystem.arrival.exception.ScheduleNotFoundException;
-import com.joranbergfeld.airportsystem.arrival.persistence.ScheduleRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.joranbergfeld.airportsystem.arrival.schedule.persistence.ScheduleRepository;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +16,6 @@ public class ScheduleService {
     private final PlaneControllerApi planeClient;
     private final ScheduleRepository scheduleRepository;
     private final ApplicationEventPublisher applicationEventPublisher;
-    private Logger log = LoggerFactory.getLogger(ScheduleService.class);
 
     public ScheduleService(AirlinerControllerApi airlinerClient, PlaneControllerApi planeClient, ScheduleRepository scheduleRepository, ApplicationEventPublisher applicationEventPublisher) {
         this.airlinerClient = airlinerClient;
@@ -65,7 +61,11 @@ public class ScheduleService {
         return scheduleRepository.save(schedule);
     }
 
-    public List<Schedule> getActiveArrivals() {
+    public Schedule getScheduleById(Long id) {
+        return scheduleRepository.findById(id).orElseThrow(() -> new ScheduleNotFoundException(id));
+    }
+
+    public List<Schedule> getActiveSchedules() {
         return scheduleRepository.findAllByActiveTrue();
     }
 }

@@ -1,10 +1,10 @@
-package com.joranbergfeld.airportsystem.arrival;
+package com.joranbergfeld.airportsystem.arrival.schedule;
 
 import jakarta.persistence.*;
 
 
 @Entity
-@Table(name = "schedules")
+@Table(name = "schedule")
 public class Schedule {
 
     @Id

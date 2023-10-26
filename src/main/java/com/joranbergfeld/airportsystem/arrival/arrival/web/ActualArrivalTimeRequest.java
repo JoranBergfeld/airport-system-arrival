@@ -1,4 +1,4 @@
-package com.joranbergfeld.airportsystem.arrival.web;
+package com.joranbergfeld.airportsystem.arrival.arrival.web;
 
 public class ActualArrivalTimeRequest {
     private long actualArrivalTime;

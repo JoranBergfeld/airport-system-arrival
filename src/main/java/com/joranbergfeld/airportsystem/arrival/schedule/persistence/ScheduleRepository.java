@@ -1,10 +1,9 @@
-package com.joranbergfeld.airportsystem.arrival.persistence;
+package com.joranbergfeld.airportsystem.arrival.schedule.persistence;
 
-import com.joranbergfeld.airportsystem.arrival.Schedule;
+import com.joranbergfeld.airportsystem.arrival.schedule.Schedule;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
     List<Schedule> findAllByActiveTrue();

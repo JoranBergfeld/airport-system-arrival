@@ -1,8 +1,8 @@
-package com.joranbergfeld.airportsystem.arrival.web;
+package com.joranbergfeld.airportsystem.arrival.arrival.web;
 
 public class ScheduleArrivalRequest {
     private Long planeId;
-    private Long airlineId;
+    private Long airlinerId;
     private long expectedTime;
 
     public Long getPlaneId() {
@@ -13,12 +13,12 @@ public class ScheduleArrivalRequest {
         this.planeId = planeId;
     }
 
-    public Long getAirlineId() {
-        return airlineId;
+    public Long getAirlinerId() {
+        return airlinerId;
     }
 
-    public void setAirlineId(Long airlineId) {
-        this.airlineId = airlineId;
+    public void setAirlinerId(Long airlinerId) {
+        this.airlinerId = airlinerId;
     }
 
     public long getExpectedTime() {
