@@ -2,6 +2,10 @@ spring:
   application:
     name: arrival-app
 management:
+  endpoints:
+    web:
+      exposure:
+        include: health, liveness-state, readiness-state, prometheus
   endpoint:
     health:
       probes:
