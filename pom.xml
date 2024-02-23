@@ -16,9 +16,9 @@
     <properties>
         <java.version>17</java.version>
         <testcontainers.version>1.18.3</testcontainers.version>
-        <airliner.api.client.version>835caa713b7cc8a910954ce27d5f301980f2bf1d</airliner.api.client.version>
-        <plane.api.client.version>891fd9ef8339238e9612c7c84f2457c0760cc865</plane.api.client.version>
-        <gate.api.client.version>b6289c6c2fa609ffe372470b38b35821f211646f</gate.api.client.version>
+        <airliner.api.client.version>5675956e1530a78b03bbf646463d9c29ce78fe6f</airliner.api.client.version>
+        <plane.api.client.version>e544de63c9d910df0bc539d8bb52ec6cccb81227</plane.api.client.version>
+        <gate.api.client.version>0dad4e1ceabfe47e1647b994974c263f3f0db69f</gate.api.client.version>
     </properties>
     <dependencies>
         <dependency>
