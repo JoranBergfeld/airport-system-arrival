@@ -12,6 +12,8 @@ public class Schedule {
     private Long id;
     private Long airlinerId;
     private Long planeId;
+    private Long requestedGateId;
+    private Long assignedGateId;
     private long expectedAt;
     private long actualArrivalTime;
     private boolean active = true;
@@ -38,6 +40,22 @@ public class Schedule {
 
     public void setPlaneId(Long planeId) {
         this.planeId = planeId;
+    }
+
+    public Long getRequestedGateId() {
+        return requestedGateId;
+    }
+
+    public void setRequestedGateId(Long gateId) {
+        this.requestedGateId = gateId;
+    }
+
+    public Long getAssignedGateId() {
+        return assignedGateId;
+    }
+
+    public void setAssignedGateId(Long assignedGateId) {
+        this.assignedGateId = assignedGateId;
     }
 
     public long getExpectedAt() {

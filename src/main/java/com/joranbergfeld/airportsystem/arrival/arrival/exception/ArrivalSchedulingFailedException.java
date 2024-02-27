@@ -1,4 +1,4 @@
-package com.joranbergfeld.airportsystem.arrival.exception;
+package com.joranbergfeld.airportsystem.arrival.arrival.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

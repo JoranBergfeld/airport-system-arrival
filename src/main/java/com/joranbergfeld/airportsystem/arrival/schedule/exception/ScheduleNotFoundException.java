@@ -1,4 +1,4 @@
-package com.joranbergfeld.airportsystem.arrival.schedule;
+package com.joranbergfeld.airportsystem.arrival.schedule.exception;
 
 public class ScheduleNotFoundException extends RuntimeException {
 

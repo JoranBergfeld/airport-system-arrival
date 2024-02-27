@@ -1,7 +1,7 @@
 package com.joranbergfeld.airportsystem.arrival.schedule.event;
 
 import com.joranbergfeld.airportsystem.arrival.schedule.Schedule;
-import com.joranbergfeld.airportsystem.arrival.schedule.ScheduleNotFoundException;
+import com.joranbergfeld.airportsystem.arrival.schedule.exception.ScheduleNotFoundException;
 import com.joranbergfeld.airportsystem.arrival.schedule.persistence.ScheduleRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

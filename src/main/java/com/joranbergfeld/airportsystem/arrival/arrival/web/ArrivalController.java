@@ -27,7 +27,7 @@ public class ArrivalController {
 
     @PostMapping
     public ResponseEntity<ArrivalDto> createArrivalSchedule(@Valid @RequestBody ScheduleArrivalRequest request) {
-        ArrivalDto arrivalDto = arrivalService.scheduleArrival(request.getAirlinerId(), request.getPlaneId(), request.getExpectedTime());
+        ArrivalDto arrivalDto = arrivalService.scheduleArrival(request.getAirlinerId(), request.getPlaneId(), request.getRequestedGateId(), request.getExpectedTime());
         return new ResponseEntity<>(arrivalDto, HttpStatus.CREATED);
     }
 

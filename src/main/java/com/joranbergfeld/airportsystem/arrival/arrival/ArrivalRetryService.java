@@ -20,18 +20,18 @@ public class ArrivalRetryService {
         this.arrivalService = arrivalService;
     }
 
-    @Scheduled(fixedRateString = "${app.arrival.retry.rate}", initialDelayString = "${app.arrival.retry.initialDelay}")
+    @Scheduled(fixedRateString = "${app.arrival.retry.schedule-rate}", initialDelayString = "${app.arrival.retry.schedule-initial-delay}")
     public void retryFailedArrivals() {
-        log.info("Retrying failed arrivals");
+        log.debug("Retrying failed arrivals");
         List<Arrival> allByStatus = arrivalRepository.findAllByStatus(ArrivalStatus.FAILED_TO_OBTAIN_GATE_OCCUPATION_WHILE_APPROACHING);
         allByStatus.forEach(arrival -> {
-            log.info("Retrying arrival with id {}", arrival.getId());
+            log.debug("Retrying arrival with id {}", arrival.getId());
             try {
                 arrivalService.setActualArrival(arrival.getId(), arrival.getArrivingTime());
             } catch (RuntimeException e) {
                 log.error("Failed to retry arrival with id {}", arrival.getId(), e);
             }
         });
-        log.info("Finished retrying failed arrivals");
+        log.debug("Finished retrying failed arrivals");
     }
 }
