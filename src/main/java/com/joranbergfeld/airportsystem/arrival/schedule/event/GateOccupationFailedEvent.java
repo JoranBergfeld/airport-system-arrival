@@ -1,4 +1,4 @@
-package com.joranbergfeld.airportsystem.arrival.event;
+package com.joranbergfeld.airportsystem.arrival.schedule.event;
 
 public record GateOccupationFailedEvent (Long scheduleId, String reason) {
 

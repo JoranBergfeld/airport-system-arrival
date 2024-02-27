@@ -1,23 +1,19 @@
 package com.joranbergfeld.airportsystem.arrival.schedule.event;
 
-import com.joranbergfeld.airportsystem.arrival.event.GateOccupationFailedEvent;
 import com.joranbergfeld.airportsystem.arrival.schedule.Schedule;
 import com.joranbergfeld.airportsystem.arrival.schedule.ScheduleNotFoundException;
 import com.joranbergfeld.airportsystem.arrival.schedule.persistence.ScheduleRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 @Component
 public class GateOccupiedFailedListener {
     private final Logger log = LoggerFactory.getLogger(GateOccupiedFailedListener.class);
-    private final ApplicationEventPublisher applicationEventPublisher;
     private final ScheduleRepository repository;
 
-    public GateOccupiedFailedListener(ApplicationEventPublisher applicationEventPublisher, ScheduleRepository repository) {
-        this.applicationEventPublisher = applicationEventPublisher;
+    public GateOccupiedFailedListener(ScheduleRepository repository) {
         this.repository = repository;
     }
 

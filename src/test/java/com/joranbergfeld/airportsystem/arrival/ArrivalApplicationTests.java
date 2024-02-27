@@ -14,7 +14,6 @@ import com.joranbergfeld.airportsystem.arrival.schedule.persistence.ScheduleRepo
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentMatcher;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +24,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
-
-import static org.junit.Assert.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class ArrivalApplicationTests {
@@ -94,7 +91,7 @@ class ArrivalApplicationTests {
         gate.setSize(1);
         gate.setOccupied(false);
         gate.setId(1L);
-        gate.setEntityId(null);
+        gate.setOccupyingEntityId(null);
         Mockito.when(gateControllerApi.getAllGates()).thenReturn(List.of(gate));
         Mockito.when(gateControllerApi.occupyGate(ArgumentMatchers.eq(1L), ArgumentMatchers.any())).thenReturn(gate);
         ActualArrivalTimeRequest actualArrivalTimeRequest = new ActualArrivalTimeRequest();

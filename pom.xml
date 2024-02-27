@@ -18,7 +18,7 @@
         <testcontainers.version>1.18.3</testcontainers.version>
         <airliner.api.client.version>5675956e1530a78b03bbf646463d9c29ce78fe6f</airliner.api.client.version>
         <plane.api.client.version>e544de63c9d910df0bc539d8bb52ec6cccb81227</plane.api.client.version>
-        <gate.api.client.version>0dad4e1ceabfe47e1647b994974c263f3f0db69f</gate.api.client.version>
+        <gate.api.client.version>2606807eb83298ad8b82993bd1b9aa178dbea7a4</gate.api.client.version>
     </properties>
     <dependencies>
         <dependency>

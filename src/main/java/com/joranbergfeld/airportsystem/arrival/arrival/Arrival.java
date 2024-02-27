@@ -10,6 +10,7 @@ public class Arrival {
     private Long id;
     private Long scheduleId;
     private boolean active = true;
+    private ArrivalStatus status = ArrivalStatus.UNKNOWN;
 
     public void setId(Long id) {
         this.id = id;
@@ -33,5 +34,13 @@ public class Arrival {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public ArrivalStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ArrivalStatus status) {
+        this.status = status;
     }
 }
