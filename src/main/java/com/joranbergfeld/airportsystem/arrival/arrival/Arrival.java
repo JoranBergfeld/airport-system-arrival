@@ -9,6 +9,7 @@ public class Arrival {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long scheduleId;
+    private long arrivingTime;
     private boolean active = true;
     private ArrivalStatus status = ArrivalStatus.UNKNOWN;
 
@@ -26,6 +27,14 @@ public class Arrival {
 
     public void setScheduleId(Long scheduleId) {
         this.scheduleId = scheduleId;
+    }
+
+    public long getArrivingTime() {
+        return arrivingTime;
+    }
+
+    public void setArrivingTime(long arrivingTime) {
+        this.arrivingTime = arrivingTime;
     }
 
     public boolean isActive() {

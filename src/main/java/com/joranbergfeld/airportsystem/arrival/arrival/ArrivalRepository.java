@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ArrivalRepository extends JpaRepository<Arrival, Long> {
     List<Arrival> findAllByActiveTrue();
+    List<Arrival> findAllByStatus(ArrivalStatus status);
 }

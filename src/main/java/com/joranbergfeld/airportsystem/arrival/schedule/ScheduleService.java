@@ -66,7 +66,7 @@ public class ScheduleService {
     public Schedule setActualArrivalAtGate(Long scheduleId, long actualArrivalTime) {
         Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(() -> new ScheduleNotFoundException(scheduleId));
         log.info("Obtaining trigger reservation for schedule with ID: " + scheduleId);
-        List<Gate> allGates = gateClient.getAllGates();
+        List<Gate> allGates = gateClient.getAllGates().stream().filter(gate -> Boolean.FALSE.equals(gate.getOccupied())).toList();
         if (allGates.isEmpty()) {
             handleFailureToFindAvailableGate(scheduleId);
             return schedule;

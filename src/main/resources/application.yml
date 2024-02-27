@@ -29,3 +29,6 @@ app:
   airliner-client:
     url: localhost
     port: 9002
+  arrival.retry:
+    rate: 10000
+    initialDelay: 10000

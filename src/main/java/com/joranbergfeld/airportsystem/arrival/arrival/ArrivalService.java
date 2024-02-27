@@ -47,15 +47,26 @@ public class ArrivalService {
 
     public ArrivalDto setActualArrival(Long arrivalId, long actualArrivalTime) {
         Arrival arrival = repository.findById(arrivalId).orElseThrow(() -> new ArrivalNotFoundException(arrivalId));
+        persistArrivalTime(actualArrivalTime, arrival);
         Schedule schedule = scheduleService.setActualArrivalAtGate(arrival.getScheduleId(), actualArrivalTime);
         // Check if schedule updated correctly
         // TODO this logic should be a bit cleaner
         if (schedule.getActualArrivalTime() == actualArrivalTime) {
-            arrival.setStatus(ArrivalStatus.APPROACHING);
+            persistArrivalStatus(arrival);
             return createArrivalDtoFromArrivalAndSchedule(arrival, schedule);
         }
 
         throw new ArrivalSchedulingFailedException("Failed to schedule arrival with ID: " + arrivalId + " and actual arrival time: " + actualArrivalTime);
+    }
+
+    private void persistArrivalStatus(Arrival arrival) {
+        arrival.setStatus(ArrivalStatus.APPROACHING);
+        repository.save(arrival);
+    }
+
+    private void persistArrivalTime(long actualArrivalTime, Arrival arrival) {
+        arrival.setArrivingTime(actualArrivalTime);
+        repository.save(arrival);
     }
 
     public List<ArrivalDto> getActiveArrivals() {
