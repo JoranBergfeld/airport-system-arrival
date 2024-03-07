@@ -18,8 +18,18 @@ public class ScheduleController {
     }
 
     @GetMapping
-    public List<Schedule> getAllScheduledArrivals() {
+    public List<Schedule> getAllSchedules() {
         return scheduleService.getActiveSchedules();
+    }
+
+    @GetMapping("/expected")
+    public List<Schedule> getAllSchedulesWithExpectedTime() {
+        return scheduleService.getAllExpectedArrivals();
+    }
+
+    @GetMapping("/assigned")
+    public List<Schedule> getAllSchedulesWithAssignedGates() {
+        return scheduleService.getAllSchedulesWithAssignedGates();
     }
 
 }

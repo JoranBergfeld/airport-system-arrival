@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
     List<Schedule> findAllByActiveTrue();
-    List<Schedule> findByAssignedGateIdNotNull();
+    List<Schedule> findByAssignedGateIdIsNotNullAndActiveTrue();
+    List<Schedule> findAllByExpectedAtIsNotNullAndActiveTrue();
+    List<Schedule> findAllByAssignedGateIdIsNotNullAndActiveTrue();
 }

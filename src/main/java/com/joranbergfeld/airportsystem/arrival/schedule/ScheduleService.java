@@ -129,7 +129,7 @@ public class ScheduleService {
     @Scheduled(fixedRateString = "${app.schedule.gate-unlock.schedule-rate}", initialDelayString = "${app.schedule.gate-unlock.schedule-initial-delay}")
     public void unlockGates() {
         log.info("Checking if any gates need to be unlocked...");
-        List<Schedule> allByActiveTrueAndActualArrivalTimeNotNull = scheduleRepository.findByAssignedGateIdNotNull();
+        List<Schedule> allByActiveTrueAndActualArrivalTimeNotNull = scheduleRepository.findByAssignedGateIdIsNotNullAndActiveTrue();
         allByActiveTrueAndActualArrivalTimeNotNull.forEach(schedule -> {
             long actualArrivalTime = schedule.getActualArrivalTime();
             long currentTime = System.currentTimeMillis() / 1000;
@@ -143,5 +143,13 @@ public class ScheduleService {
             }
         });
         log.info("Finished checking if gates need to be unlocked.");
+    }
+
+    public List<Schedule> getAllExpectedArrivals() {
+        return scheduleRepository.findAllByExpectedAtIsNotNullAndActiveTrue();
+    }
+
+    public List<Schedule> getAllSchedulesWithAssignedGates() {
+        return scheduleRepository.findAllByExpectedAtIsNotNullAndActiveTrue();
     }
 }
