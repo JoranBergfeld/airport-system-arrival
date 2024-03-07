@@ -64,6 +64,6 @@ public class ArrivalService {
     }
 
     private ArrivalDto createArrivalDtoFromArrivalAndSchedule(Arrival arrival, Schedule schedule) {
-        return new ArrivalDto(arrival.getId(), schedule.getAirlinerId(), schedule.getPlaneId(), schedule.getRequestedGateId(), schedule.getAssignedGateId(), schedule.getExpectedAt(), schedule.getActualArrivalTime(), arrival.isActive());
+        return new ArrivalDto(arrival.getId(), arrival.getScheduleId(), schedule.getAirlinerId(), schedule.getPlaneId(), schedule.getRequestedGateId(), schedule.getAssignedGateId(), schedule.getExpectedAt(), schedule.getActualArrivalTime(), arrival.isActive());
     }
 }
