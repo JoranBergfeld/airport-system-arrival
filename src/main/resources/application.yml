@@ -35,6 +35,6 @@ app:
       schedule-initial-delay: 10000
   schedule:
     gate-unlock:
-      grace-period: 10000
+      grace-period: 200000
       schedule-rate: 10000
       schedule-initial-delay: 10000

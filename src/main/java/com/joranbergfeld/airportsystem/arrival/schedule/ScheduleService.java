@@ -132,9 +132,9 @@ public class ScheduleService {
         List<Schedule> allByActiveTrueAndActualArrivalTimeNotNull = scheduleRepository.findByAssignedGateIdIsNotNullAndActiveTrue();
         allByActiveTrueAndActualArrivalTimeNotNull.forEach(schedule -> {
             long actualArrivalTime = schedule.getActualArrivalTime();
-            long currentTime = System.currentTimeMillis() / 1000;
+            long currentTime = System.currentTimeMillis();
             log.info("Identified actual arrival time as  {}  and current time as {}", actualArrivalTime, currentTime);
-            if (currentTime + (gracePeriod / 1000) > actualArrivalTime) {
+            if ((currentTime + gracePeriod) > actualArrivalTime) {
                 log.info("Unlocking gate with ID {} for schedule with ID: {}", schedule.getAssignedGateId(), schedule.getId());
                 gateClient.freeGate(schedule.getAssignedGateId());
                 schedule.setActive(false);
