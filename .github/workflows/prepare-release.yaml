@@ -1,9 +1,9 @@
-name: Build and push Docker images to GitHub Packages
+name: Prepare the code is ready for release
 
 on:
   push:
-    tags:
-      - v*
+    branches:
+      - main
 
 env:
   REGISTRY_USER: ${{ github.actor }}
@@ -42,5 +42,5 @@ jobs:
           repositories: '[{ "id": "nexus", "url": "${{ secrets.NEXUS_URL }}" }]'
           servers: '[{ "id": "nexus", "username": "${{ secrets.NEXUS_USERNAME }}", "password": "${{ secrets.NEXUS_PASSWORD }}" }]'
 
-      - name: Build and push arrival container
-        run: mvn -DskipTests -Dspring-boot.build-image.imageName=arrival:${{ github.ref_name }} spring-boot:build-image
+      - name: Prepare release
+        run: mvn release:prepare -Dresume=false
