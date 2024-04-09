@@ -3,7 +3,7 @@ name: Publish API client
 on:
   push:
     tags:
-      - '*'
+      - '**'
 env:
   IMAGE_NAME: joranbergfeld/airport-system
   REGISTRY_USER: ${{ github.actor }}
