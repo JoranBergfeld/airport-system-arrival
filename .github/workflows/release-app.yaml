@@ -58,12 +58,12 @@ jobs:
       - name: Build and push arrival container
         env:
           RELEASE_VERSION: ${{ steps.determine-version.outputs.RELEASE_VERSION }}
-        run: mvn -DskipTests -Dspring-boot.build-image.imageName=arrival:$RELEASE_VERSION spring-boot:build-image
+        run: mvn -DskipTests -Dspring-boot.build-image.imageName=ghcr.io/joranbergfeld/airport-system-arrival/arrival:$RELEASE_VERSION spring-boot:build-image
 
-      - name: Build arrival app
+      - name: Build openapi specification
         run: mvn verify
 
-      - name: Generate arrival client
+      - name: Generate arrival api client from openapi specification
         uses: openapi-generators/openapitools-generator-action@v1
         env:
           RELEASE_VERSION: ${{ steps.determine-version.outputs.RELEASE_VERSION }}
@@ -72,9 +72,9 @@ jobs:
           generator: java
           command-args: "--api-package com.joranbergfeld.airport-system.arrival.client.api --model-package com.joranbergfeld.airport-system.arrival.client.model --invoker-package com.joranbergfeld.airport-system.arrival.client.invoker --group-id com.joranbergfeld.airport-system --artifact-id arrival-api.client --artifact-version $RELEASE_VERSION --library resttemplate -o arrival-client"
 
-      - name: Deploy client to nexus
+      - name: Deploy arrival api client to nexus
         run: cd arrival-client && sed -i "/<spring-web-version>/s/>.*</>6.0.7</" pom.xml && mvn deploy -DaltDeploymentRepository=nexus::default::${{ secrets.NEXUS_URL }}
 
-      - name: Prepare release
+      - name: Prepare for the next release, push tag to repository
         run: mvn release:prepare -Dresume=false
 
