@@ -50,7 +50,7 @@ jobs:
 
       - name: Obtain version from pom
         id: obtain-version
-        run: echo "POM_RELEASE_VERSION={mvn help:evaluate -Dexpression=project.version -q -DforceStdout}" >> "$GITHUB_OUTPUT"
+        run: echo "POM_RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> "$GITHUB_OUTPUT"
 
       - name: Log the pom version
         env:
@@ -61,7 +61,7 @@ jobs:
         id: determine-version
         env:
           POM_RELEASE_VERSION: ${{ steps.obtain-version.outputs.POM_RELEASE_VERSION }}
-        run: echo "RELEASE_VERSION={echo $POM_RELEASE_VERSION | sed 's/-SNAPSHOT//'}" >> "$GITHUB_OUTPUT"
+        run: echo "RELEASE_VERSION=$(echo $POM_RELEASE_VERSION | sed 's/-SNAPSHOT//')" >> "$GITHUB_OUTPUT"
 
       - name: Log the version
         env:
