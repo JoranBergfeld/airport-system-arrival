@@ -1,4 +1,4 @@
-name: Prepare the code is ready for release
+name: Release container, api client and increment version
 
 on:
   push:
@@ -45,17 +45,9 @@ jobs:
       - name: Setup GitHub Actions to commit to the repository
         run: git config --global user.email "<>" && git config --global user.name "GitHub Actions"
 
-      #- name: Prepare release
-      #  run: mvn release:prepare -Dresume=false
-
       - name: Obtain version from pom
         id: obtain-version
         run: echo "POM_RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> "$GITHUB_OUTPUT"
-
-      - name: Log the pom version
-        env:
-          POM_RELEASE_VERSION: ${{ steps.obtain-version.outputs.POM_RELEASE_VERSION }}
-        run: echo "The pom version is $POM_RELEASE_VERSION"
 
       - name: Obtain non-snapshot version from previous step
         id: determine-version
@@ -63,13 +55,26 @@ jobs:
           POM_RELEASE_VERSION: ${{ steps.obtain-version.outputs.POM_RELEASE_VERSION }}
         run: echo "RELEASE_VERSION=$(echo $POM_RELEASE_VERSION | sed 's/-SNAPSHOT//')" >> "$GITHUB_OUTPUT"
 
-      - name: Log the version
+      - name: Build and push arrival container
         env:
           RELEASE_VERSION: ${{ steps.determine-version.outputs.RELEASE_VERSION }}
-        run: echo "The version is $RELEASE_VERSION"
+        run: mvn -DskipTests -Dspring-boot.build-image.imageName=arrival:$RELEASE_VERSION spring-boot:build-image
 
-      #- name: Build and push arrival container
-      #  run: mvn -DskipTests -Dspring-boot.build-image.imageName=arrival:${{ steps.determine-version.outputs.RELEASE_VERSION }} spring-boot:build-image
+      - name: Build arrival app
+        run: mvn verify
 
-      #- name: Push the release tag
-      #  run: git push origin ${{ github.ref_name }}
+      - name: Generate arrival client
+        uses: openapi-generators/openapitools-generator-action@v1
+        env:
+          RELEASE_VERSION: ${{ steps.determine-version.outputs.RELEASE_VERSION }}
+        with:
+          openapi-file: target/openapi.json
+          generator: java
+          command-args: "--api-package com.joranbergfeld.airport-system.arrival.client.api --model-package com.joranbergfeld.airport-system.arrival.client.model --invoker-package com.joranbergfeld.airport-system.arrival.client.invoker --group-id com.joranbergfeld.airport-system --artifact-id arrival-api.client --artifact-version $RELEASE_VERSION --library resttemplate -o arrival-client"
+
+      - name: Deploy client to nexus
+        run: cd arrival-client && sed -i "/<spring-web-version>/s/>.*</>6.0.7</" pom.xml && mvn deploy -DaltDeploymentRepository=nexus::default::${{ secrets.NEXUS_URL }}
+
+      - name: Prepare release
+        run: mvn release:prepare -Dresume=false
+
