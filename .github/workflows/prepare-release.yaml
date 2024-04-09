@@ -52,12 +52,21 @@ jobs:
         id: obtain-version
         run: echo "{POM_RELEASE_VERSION}={mvn help:evaluate -Dexpression=project.version -q -DforceStdout}" >> "$GITHUB_OUTPUT"
 
+      - name: Log the pom version
+        env:
+          POM_RELEASE_VERSION: ${{ steps.obtain-version.outputs.POM_RELEASE_VERSION }}
+        run: echo "The pom version is $POM_RELEASE_VERSION"
+
       - name: Obtain non-snapshot version from previous step
         id: determine-version
-        run: echo "{RELEASE_VERSION}={echo ${{ steps.obtain-version.outputs.POM_RELEASE_VERSION }} | sed 's/-SNAPSHOT//'}" >> "$GITHUB_OUTPUT"
+        env:
+          POM_RELEASE_VERSION: ${{ steps.obtain-version.outputs.POM_RELEASE_VERSION }}
+        run: echo "{RELEASE_VERSION}={echo $POM_RELEASE_VERSION | sed 's/-SNAPSHOT//'}" >> "$GITHUB_OUTPUT"
 
       - name: Log the version
-        run: echo "The version is ${{ steps.determine-version.outputs.RELEASE_VERSION }}"
+        env:
+          RELEASE_VERSION: ${{ steps.determine-version.outputs.RELEASE_VERSION }}
+        run: echo "The version is $RELEASE_VERSION"
 
       - name: Build and push arrival container
         run: mvn -DskipTests -Dspring-boot.build-image.imageName=arrival:${{ steps.determine-version.outputs.RELEASE_VERSION }} spring-boot:build-image
