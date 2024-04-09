@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.joranbergfeld.airport-system</groupId>
     <artifactId>arrival</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>arrival</name>
     <description>arrival</description>
     <properties>
@@ -112,6 +112,11 @@
         </dependencies>
     </dependencyManagement>
 
+    <scm>
+        <connection>scm:git:https://github.com/JoranBergfeld/airport-system-arrival.git</connection>
+        <developerConnection>scm:git:https://github.com/JoranBergfeld/airport-system-arrival.git</developerConnection>
+    </scm>
+
     <build>
         <plugins>
             <plugin>
@@ -144,6 +149,14 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>3.0.1</version>
+                <configuration>
+                    <projectVersionPolicyId>SemVerVersionPolicy</projectVersionPolicyId>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.asciidoctor</groupId>
