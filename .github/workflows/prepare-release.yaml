@@ -42,5 +42,8 @@ jobs:
           repositories: '[{ "id": "nexus", "url": "${{ secrets.NEXUS_URL }}" }]'
           servers: '[{ "id": "nexus", "username": "${{ secrets.NEXUS_USERNAME }}", "password": "${{ secrets.NEXUS_PASSWORD }}" }]'
 
+      - name: Setup GitHub Actions to commit to the repository
+        run: git config --global user.email "<>" && git config --global user.name "GitHub Actions"
+
       - name: Prepare release
         run: mvn release:prepare -Dresume=false
