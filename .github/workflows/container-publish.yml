@@ -3,7 +3,7 @@ name: Build and push Docker images to GitHub Packages
 on:
   push:
     tags:
-      - v*
+      - '*'
 
 env:
   REGISTRY_USER: ${{ github.actor }}
