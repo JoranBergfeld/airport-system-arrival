@@ -2,8 +2,8 @@ name: Publish API client
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - v*
 
 env:
   IMAGE_NAME: joranbergfeld/airport-system
@@ -38,7 +38,7 @@ jobs:
         with:
           openapi-file: target/openapi.json
           generator: java
-          command-args: "--api-package com.joranbergfeld.airport-system.arrival.client.api --model-package com.joranbergfeld.airport-system.arrival.client.model --invoker-package com.joranbergfeld.airport-system.arrival.client.invoker --group-id com.joranbergfeld.airport-system --artifact-id arrival-api.client --artifact-version ${{ github.sha }} --library resttemplate -o arrival-client"
+          command-args: "--api-package com.joranbergfeld.airport-system.arrival.client.api --model-package com.joranbergfeld.airport-system.arrival.client.model --invoker-package com.joranbergfeld.airport-system.arrival.client.invoker --group-id com.joranbergfeld.airport-system --artifact-id arrival-api.client --artifact-version ${{ github.ref_name }} --library resttemplate -o arrival-client"
 
       - name: Deploy client to nexus
         run: cd arrival-client && sed -i "/<spring-web-version>/s/>.*</>6.0.7</" pom.xml && mvn deploy -DaltDeploymentRepository=nexus::default::${{ secrets.NEXUS_URL }}
