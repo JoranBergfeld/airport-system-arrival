@@ -47,3 +47,20 @@ jobs:
 
       - name: Prepare release
         run: mvn release:prepare -Dresume=false
+
+      - name: Obtain version from pom
+        id: obtain-version
+        run: echo "{POM_RELEASE_VERSION}={mvn help:evaluate -Dexpression=project.version -q -DforceStdout}" >> "$GITHUB_OUTPUT"
+
+      - name: Obtain non-snapshot version from previous step
+        id: determine-version
+        run: echo "{RELEASE_VERSION}={echo ${{ steps.obtain-version.outputs.POM_RELEASE_VERSION }} | sed 's/-SNAPSHOT//'}" >> "$GITHUB_OUTPUT"
+
+      - name: Log the version
+        run: echo "The version is ${{ steps.determine-version.outputs.RELEASE_VERSION }}"
+
+      - name: Build and push arrival container
+        run: mvn -DskipTests -Dspring-boot.build-image.imageName=arrival:${{ steps.determine-version.outputs.RELEASE_VERSION }} spring-boot:build-image
+
+      - name: Push the release tag
+        run: git push origin ${{ github.ref_name }}
