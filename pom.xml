@@ -125,7 +125,6 @@
                 <configuration>
                     <jvmArguments>-Dspring.application.admin.enabled=true</jvmArguments>
                     <image>
-                        <name>ghcr.io/joranbergfeld/airport-system-arrival/${project.artifactId}:${project.version}</name>
                         <publish>true</publish>
                     </image>
                     <docker>
