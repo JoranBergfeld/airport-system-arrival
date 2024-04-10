@@ -9,7 +9,7 @@
     </parent>
     <groupId>com.joranbergfeld.airport-system</groupId>
     <artifactId>arrival</artifactId>
-    <version>0.12.0-SNAPSHOT</version>
+    <version>0.12.0</version>
     <name>arrival</name>
     <description>arrival</description>
     <properties>
@@ -114,7 +114,7 @@
     <scm>
         <connection>scm:git:https://github.com/JoranBergfeld/airport-system-arrival.git</connection>
         <developerConnection>scm:git:https://github.com/JoranBergfeld/airport-system-arrival.git</developerConnection>
-      <tag>arrival-0.0.1</tag>
+      <tag>v0.12.0</tag>
   </scm>
 
     <build>
