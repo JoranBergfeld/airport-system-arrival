@@ -89,7 +89,7 @@ jobs:
           RELEASE_VERSION: ${{ steps.determine-version.outputs.RELEASE_VERSION }}
         run: | 
           cd airport-system-gitops/arrival
-          sed "s/image:.*/image: ghcr.io/joranbergfeld/airport-system-arrival/arrival:$RELEASE_VERSION/g" deployment.yaml
+          sed -i "s/image:.*/image: ghcr.io/joranbergfeld/airport-system-arrival/arrival:$RELEASE_VERSION/g" deployment.yaml
           git add deployment.yaml
           git commit -m "Update image tag after release"
           git push origin main
